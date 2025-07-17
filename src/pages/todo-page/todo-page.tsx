@@ -17,8 +17,8 @@ export const TodoPage = () => {
           <Loader2 className="w-10 h-10 animate-spin" />
         </div>
       ) : (
-        <div className="flex-1 overflow-hidden">
-          <div className="flex justify-between items-center px-4">
+        <div className="flex-1 overflow-hidden max-w-lg w-full mx-auto">
+          <div className="flex justify-between items-center">
             <h2 className="text-2xl font-semibold mb-6 mt-8 flex-shrink-0">Your Todos</h2>
             <FilterTodo />
           </div>

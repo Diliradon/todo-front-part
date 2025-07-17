@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { CheckCheck, Loader, Logs } from 'lucide-react';
+import { CheckCheck, Loader, Logs, Search } from 'lucide-react';
 
 import { mergeSearchParams, SearchWithParams } from '@/shared/functions';
-import { Input, ToggleGroup, ToggleGroupItem } from '@/shared/ui';
+import { Button, Input, ToggleGroup, ToggleGroupItem } from '@/shared/ui';
 
 export const FilterTodo = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -14,7 +14,6 @@ export const FilterTodo = () => {
 
   const setSearchWith = (params: SearchWithParams) => {
     const search = mergeSearchParams(params, searchParams);
-
     setSearchParams(search);
   };
 
@@ -25,7 +24,7 @@ export const FilterTodo = () => {
 
   const handleFilter = (value: string) => {
     if (!value) return;
-    
+
     setStatus(value);
     setSearchWith({ status: value });
   };
@@ -36,15 +35,20 @@ export const FilterTodo = () => {
         type="text"
         placeholder="Search"
         value={query}
-        onChange={(e) => handleSearch(e.target.value)}
+        onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            handleSearch(query);
+          }
+        }}
+        onBlur={() => handleSearch(query)}
       />
 
-      <ToggleGroup
-        variant="default"
-        type="single"
-        value={status}
-        onValueChange={handleFilter}
-      >
+      <Button variant="ghost" size="icon" onClick={() => handleSearch(query)}>
+        <Search className="h-4 w-4" />
+      </Button>
+
+      <ToggleGroup variant="default" type="single" value={status} onValueChange={handleFilter}>
         <ToggleGroupItem value="all" aria-label="Toggle completed">
           <Logs className="h-4 w-4" />
         </ToggleGroupItem>
