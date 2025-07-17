@@ -1,10 +1,11 @@
 import { useTodos } from '@/shared/api/queries/todos';
 import { CreateTodo, TodoList } from './ui';
 import { Loader2 } from 'lucide-react';
+import { FilterTodo } from './ui/filter-todo';
 
 export const TodoPage = () => {
   const { data: todos, isLoading } = useTodos();
-  console.log(todos);
+
   return (
     <section className="flex flex-col max-w-full w-full h-full max-h-screen py-6">
       <div className="flex-shrink-0">
@@ -17,6 +18,10 @@ export const TodoPage = () => {
         </div>
       ) : (
         <div className="flex-1 overflow-hidden">
+          <div className="flex justify-between items-center px-4">
+            <h2 className="text-2xl font-semibold mb-6 mt-8 flex-shrink-0">Your Todos</h2>
+            <FilterTodo />
+          </div>
           <TodoList items={todos ?? []} />
         </div>
       )}

@@ -2,11 +2,8 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/shared/ui/form';
-import { Input } from '@/shared/ui/input';
-import { Textarea } from '@/shared/ui/textarea';
-import { Button } from '@/shared/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/shared/ui/card';
-import { useCreateTodo } from '@/shared/api/queries/todos/useCreateTodo';
+import { Input, Textarea, Button, Card, CardContent, CardHeader, CardTitle } from '@/shared/ui';
+import { useCreateTodo } from '@/shared/api/queries/todos/use-create-todo';
 
 export const CreateTodo = () => {
   const todoFormSchema = z.object({
