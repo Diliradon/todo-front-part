@@ -86,10 +86,18 @@ export const TodoList: FC<TodoListProps> = ({ items }) => {
             <ToggleGroupItem value="all" aria-label="Toggle completed">
               <Logs className="h-4 w-4" />
             </ToggleGroupItem>
-            <ToggleGroupItem value="completed" aria-label="Toggle completed">
+            <ToggleGroupItem
+              value="completed"
+              aria-label="Toggle completed"
+              className="hover:bg-green-100 hover:text-green-600 dark:hover:bg-green-900 dark:hover:text-green-400 data-[state=on]:bg-green-100 data-[state=on]:text-green-600 dark:data-[state=on]:bg-green-900 dark:data-[state=on]:text-green-400"
+            >
               <CheckCheck className="h-4 w-4" />
             </ToggleGroupItem>
-            <ToggleGroupItem value="in-progress" aria-label="Toggle in progress">
+            <ToggleGroupItem
+              value="in-progress"
+              aria-label="Toggle in progress"
+              className="hover:bg-orange-100 hover:text-gray-600 dark:hover:bg-gray-900 dark:hover:text-gray-400 data-[state=on]:bg-orange-100 data-[state=on]:text-gray-600 dark:data-[state=on]:bg-gray-900 dark:data-[state=on]:text-gray-400"
+            >
               <Loader className="h-4 w-4" />
             </ToggleGroupItem>
           </ToggleGroup>
