@@ -7,6 +7,7 @@ export const App = () => {
     <TanStackQueryProvider>
       <main
         style={{ width: '100%', height: '100dvh', position: 'relative' }}
+        className="px-4"
       >
         {/* Background layer */}
         <div className="absolute inset-0 z-0">

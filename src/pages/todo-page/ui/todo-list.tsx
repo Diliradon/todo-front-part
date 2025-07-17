@@ -5,8 +5,21 @@ import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
 import { Textarea } from '@/shared/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/ui/card';
-import { Calendar, Check, CircleCheckBig, Edit2, Edit3, Loader2, Trash2, X } from 'lucide-react';
+import {
+  Calendar,
+  Check,
+  CheckCheck,
+  CircleCheckBig,
+  Edit2,
+  Edit3,
+  Loader,
+  Loader2,
+  Logs,
+  Trash2,
+  X,
+} from 'lucide-react';
 import { FC, useState } from 'react';
+import { ToggleGroup, ToggleGroupItem } from '@/shared/ui';
 
 interface TodoListProps {
   items: Todo[];
@@ -63,7 +76,25 @@ export const TodoList: FC<TodoListProps> = ({ items }) => {
 
   return (
     <div className="flex flex-col h-full max-w-lg mx-auto">
-      <h2 className="text-2xl font-semibold mb-6 mt-8 flex-shrink-0">Your Todos</h2>
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-semibold mb-6 mt-8 flex-shrink-0">Your Todos</h2>
+
+        <div className="flex items-center gap-2">
+          <Input type="text" placeholder="Search" />
+
+          <ToggleGroup variant="default" type="single">
+            <ToggleGroupItem value="all" aria-label="Toggle completed">
+              <Logs className="h-4 w-4" />
+            </ToggleGroupItem>
+            <ToggleGroupItem value="completed" aria-label="Toggle completed">
+              <CheckCheck className="h-4 w-4" />
+            </ToggleGroupItem>
+            <ToggleGroupItem value="in-progress" aria-label="Toggle in progress">
+              <Loader className="h-4 w-4" />
+            </ToggleGroupItem>
+          </ToggleGroup>
+        </div>
+      </div>
       <div className="grid gap-4 pb-4 rounded-xl flex-1 overflow-y-auto max-h-[calc(100dvh-400px)] hide-scrollbar">
         {items.map((todo) => {
           const isEditing = editingId === todo.id;
