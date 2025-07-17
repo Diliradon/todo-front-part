@@ -1,14 +1,12 @@
 import { TanStackQueryProvider } from "./shared/providers";
+import { TodoPage } from "./pages/todo-page";
 
 export const App = () => {
-
   return (
-    <div className='container mx-auto p-4 max-w-md'>
-      <TanStackQueryProvider>
-        <div className="mb-10">
-          <h1>Todo App</h1>
-        </div>
-      </TanStackQueryProvider>
-    </div>
+    <TanStackQueryProvider>
+      <main className='container mx-auto p-4 max-w-md'>
+        <TodoPage />
+      </main>
+    </TanStackQueryProvider>
   );
-}
+};

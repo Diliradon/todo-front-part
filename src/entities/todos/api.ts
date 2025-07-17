@@ -2,17 +2,17 @@ import { client } from '@/shared/lib/axios';
 import { Todo } from './api.types';
 
 export const getTodos = () => {
-  return client.get<Todo[]>('/todos');
+  return client.get<Todo[]>('/tasks');
 };
 
 export const createTodo = (todo: Omit<Todo, 'id' | 'createdAt' | 'updatedAt'>) => {
-  return client.post('/todos', todo);
+  return client.post('/tasks', todo);
 };
 
 export const updateTodo = (todo: Todo) => {
-  return client.put(`/todos/${todo.id}`, todo);
+  return client.put(`/tasks/${todo.id}`, todo);
 };
 
 export const deleteTodo = (id: number) => {
-  return client.delete(`/todos/${id}`);
+  return client.delete(`/tasks/${id}`);
 };

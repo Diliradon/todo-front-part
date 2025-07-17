@@ -7,7 +7,7 @@ import { todosKeys } from './keys';
 export const useCreateTodo = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (todo: Omit<Todo, 'id'>) => createTodo(todo),
+    mutationFn: (todo: Omit<Todo, 'id' | 'createdAt' | 'updatedAt'>) => createTodo(todo),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: todosKeys.all }),
   });
 };
