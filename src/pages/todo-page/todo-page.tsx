@@ -1,100 +1,25 @@
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/shared/ui/form';
-import { Input } from '@/shared/ui/input';
-import { Textarea } from '@/shared/ui/textarea';
-import { Button } from '@/shared/ui/button';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/shared/ui/card';
-import { useCreateTodo } from '@/shared/api/queries/todos/useCreateTodo';
+import { useTodos } from '@/shared/api/queries/todos';
+import { CreateTodo, TodoList } from './ui';
+import { Loader2 } from 'lucide-react';
 
 export const TodoPage = () => {
-  const todoFormSchema = z.object({
-    title: z.string().min(1, { message: 'Title is required.' }),
-    description: z.string().optional(),
-  });
-
-  type TodoFormValues = z.infer<typeof todoFormSchema>;
-
-  const form = useForm<TodoFormValues>({
-    resolver: zodResolver(todoFormSchema),
-    defaultValues: {
-      title: '',
-      description: '',
-    },
-  });
-
-  const { mutate, isPending } = useCreateTodo();
-
-  const onSubmit = (data: TodoFormValues) => {
-    mutate({
-      title: data.title,
-      description: data.description ?? '',
-      completed: false,
-    });
-    form.reset();
-  };
-
+  const { data: todos, isLoading } = useTodos();
+  console.log(todos);
   return (
-    <section className="flex flex-col gap-4">
-      <Card>
-        <CardHeader>
-          <CardTitle>Create New Todo</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-6"
-            >
-              <FormField
-                control={form.control}
-                name="title"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Title</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter todo title" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="description"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Description</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Enter todo description"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button type="submit" disabled={isPending}>
-                Add Todo
-              </Button>
-            </form>
-          </Form>
-        </CardContent>
-      </Card>
+    <section className="flex flex-col max-w-full w-full h-full max-h-screen py-6">
+      <div className="flex-shrink-0">
+        <CreateTodo />
+      </div>
+
+      {isLoading ? (
+        <div className="flex justify-center items-center flex-1">
+          <Loader2 className="w-10 h-10 animate-spin" />
+        </div>
+      ) : (
+        <div className="flex-1 overflow-hidden">
+          <TodoList items={todos ?? []} />
+        </div>
+      )}
     </section>
   );
 };
