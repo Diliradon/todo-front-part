@@ -10,7 +10,7 @@ export const createTodo = (todo: Omit<Todo, 'id' | 'createdAt' | 'updatedAt'>) =
 };
 
 export const updateTodo = (todo: Todo) => {
-  return client.put(`/tasks/${todo.id}`, todo);
+  return client.patch(`/tasks/${todo.id}`, todo);
 };
 
 export const deleteTodo = (id: number) => {

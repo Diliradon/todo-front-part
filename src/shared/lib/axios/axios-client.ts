@@ -31,12 +31,12 @@ export const client = {
 
   async patch<T>(url: string, data?: unknown, config?: AxiosRequestConfig) {
     if (typeof data === 'undefined') {
-      const response = await instance.post<T>(url);
+      const response = await instance.patch<T>(url);
 
       return response.data;
     }
 
-    const response = await instance.post<T>(url, data, config);
+    const response = await instance.patch<T>(url, data, config);
 
     return response.data;
   },
